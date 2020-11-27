@@ -1,0 +1,23 @@
+{
+  "name": "spaceship-reactive",
+  "version": "0.0.1",
+  "description": "",
+  "keywords": [
+    "spaceship-reactive"
+  ],
+  "license": "unlicensed",
+  "author": "Sergi Mansilla",
+  "scripts": {
+    "build": "parcel build index.html",
+    "dev": "parcel index.html --open --port=4321",
+    "start": "npm run build && npm run dev",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "devDependencies": {
+    "parcel-bundler": "^1.12.4"
+  },
+  "dependencies": {
+    "js": "^0.1.0",
+    "rxjs": "^6.6.3"
+  }
+}
