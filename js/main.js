@@ -14,17 +14,11 @@ const hero = new Hero(canvas, ctx);
 
 const starStream$ = starField.createStarStream();
 const spaceShip$ = hero.createSpaceShip();
-const game$ = combineLatest(
-  starStream$,
-  spaceShip$,
-  (stars, spaceShip) => ({
-    stars,
-    spaceShip,
-  }))
+const game$ = combineLatest([starStream$, spaceShip$])
 
-function renderScene(actors) {
-  starField.paintStars(actors.stars);
-  hero.paintSpaceShip(actors.spaceShip.x, actors.spaceShip.y);
+function renderScene([stars, spaceShip]) {
+  starField.paintStars(stars);
+  hero.paintSpaceShip(spaceShip.x, spaceShip.y);
 }
 
 game$.subscribe(renderScene);
