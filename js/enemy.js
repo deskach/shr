@@ -23,9 +23,7 @@ export class Enemy {
     return interval(this.ENEMY_FREQ)
       .pipe(
         scan(enemyArray => {
-          enemyArray.push(this.createEnemyCoords())
-
-          return enemyArray
+          return [...enemyArray, this.createEnemyCoords()].filter(enemy => enemy.y < this.canvas.height)
         }, []),
       )
   }
