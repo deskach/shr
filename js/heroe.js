@@ -1,5 +1,6 @@
 import { fromEvent } from 'rxjs';
 import { map, startWith } from "rxjs/operators";
+import { drawTriangle } from "./util";
 
 
 export class Hero {
@@ -8,7 +9,6 @@ export class Hero {
     this.ctx = context;
     this.HERO_Y = canvas.height - 30;
     this.createSpaceShip = this.createSpaceShip.bind(this);
-    this.drawTriangle = this.drawTriangle.bind(this);
     this.paintSpaceShip = this.paintSpaceShip.bind(this);
   }
 
@@ -23,17 +23,7 @@ export class Hero {
       );
   }
 
-  drawTriangle(x, y, width, color, direction) {
-    this.ctx.fillStyle = color;
-    this.ctx.beginPath();
-    this.ctx.moveTo(x - width, y);
-    this.ctx.lineTo(x, direction === 'up' ? y - width : y + width);
-    this.ctx.lineTo(x + width, y);
-    this.ctx.lineTo(x - width, y);
-    this.ctx.fill();
-  }
-
   paintSpaceShip(x, y) {
-    this.drawTriangle(x, y, 20, '#ff0000', 'up');
+    drawTriangle(this.ctx, x, y, 20, '#ff0000', 'up');
   }
 }

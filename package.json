@@ -9,7 +9,7 @@
   "author": "Sergi Mansilla",
   "scripts": {
     "build": "parcel build index.html",
-    "dev": "parcel index.html --open --port=4321",
+    "dev": "parcel index.html --port=4321",
     "start": "npm run build && npm run dev",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

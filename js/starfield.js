@@ -2,9 +2,9 @@ import { interval, range } from "rxjs";
 import { map, mergeMap, toArray } from "rxjs/operators";
 
 export class StarField {
-  constructor(canvas, context) {
-    this.SPEED = 40;
-    this.STAR_NUMBER = 250;
+  constructor(canvas, context, gameSpeed, starNumber = 250) {
+    this.SPEED = gameSpeed;
+    this.STAR_NUMBER = starNumber;
     this.canvas = canvas;
     this.ctx = context;
     this.createStarStream = this.createStarStream.bind(this);
