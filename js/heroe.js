@@ -4,10 +4,10 @@ import { drawTriangle } from "./util";
 
 
 export class Hero {
-  constructor(canvas, context) {
+  constructor(canvas, context, heroY) {
     this.canvas = canvas;
     this.ctx = context;
-    this.HERO_Y = canvas.height - 30;
+    this.HERO_Y = heroY;
     this.createSpaceShip = this.createSpaceShip.bind(this);
     this.paintSpaceShip = this.paintSpaceShip.bind(this);
   }
