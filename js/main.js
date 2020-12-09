@@ -5,6 +5,8 @@ import { Hero } from "./heroe";
 import { Enemy } from "./enemy";
 import { HeroShots } from "./hero_shots";
 import { testMerge } from './experiments/merge'
+import { testTimer } from "./experiments/defer";
+import { testEmpty } from "./experiments/empty";
 
 function renderScene([stars, spaceShip, enemies, heroShotsArray]) {
   starField.paintStars(stars);
@@ -50,3 +52,5 @@ const game$ = combineLatest([
   // .subscribe(renderScene)
 
 // testMerge()
+// testTimer()
+testEmpty()
