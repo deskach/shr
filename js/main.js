@@ -4,6 +4,14 @@ import { StarField } from "./starfield";
 import { Hero } from "./heroe";
 import { Enemy } from "./enemy";
 import { HeroShots } from "./hero_shots";
+import { testMerge } from './experiments/merge'
+
+function renderScene([stars, spaceShip, enemies, heroShotsArray]) {
+  starField.paintStars(stars);
+  hero.paintSpaceShip(spaceShip.x, spaceShip.y);
+  enemy.paintEnemies(enemies);
+  heroShots.paintHeroShots(heroShotsArray);
+}
 
 const canvas = document.createElement('canvas');
 document.body.appendChild(canvas);
@@ -18,6 +26,7 @@ const starField = new StarField(canvas, ctx, GAME_SPEED);
 const hero = new Hero(canvas, ctx, HERO_Y);
 const enemy = new Enemy(canvas, ctx, GAME_SPEED);
 const heroShots = new HeroShots(canvas, ctx)
+
 
 const starStream$ = starField.createStarStream();
 const spaceShip$ = hero.createSpaceShip();
@@ -38,11 +47,6 @@ const game$ = combineLatest([
   .pipe(
     sampleTime(GAME_SPEED)
   )
-  .subscribe(renderScene)
+  // .subscribe(renderScene)
 
-function renderScene([stars, spaceShip, enemies, heroShotsArray]) {
-  starField.paintStars(stars);
-  hero.paintSpaceShip(spaceShip.x, spaceShip.y);
-  enemy.paintEnemies(enemies);
-  heroShots.paintHeroShots(heroShotsArray);
-}
+// testMerge()
