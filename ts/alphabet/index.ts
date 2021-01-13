@@ -15,20 +15,18 @@ const gameWidth = 30;
 const intervalSubject = new BehaviorSubject(600);
 
 const letters$ = intervalSubject.pipe(
-  switchMap(i =>
-    interval(i).pipe(
-      scan<number, Letters>
-      (letters => ({
-          intrvl: i,
-          ltrs: [
-            {
-              letter: randomLetter(),
-              yPos: Math.floor(Math.random() * gameWidth)
-            },
-            ...letters.ltrs
-          ]
-        }),
-        { ltrs: [], intrvl: 0 })
+  switchMap(i => interval(i).pipe(
+    scan<number, Letters>(letters => ({
+        intrvl: i,
+        ltrs: [
+          {
+            letter: randomLetter(),
+            yPos: Math.floor(Math.random() * gameWidth)
+          },
+          ...letters.ltrs
+        ]
+      }),
+      { ltrs: [], intrvl: 0 })
     )
   )
 );
@@ -49,24 +47,24 @@ const renderGame = (state: State) => (
       '-'.repeat(gameWidth))
 );
 const renderGameOver = () => (document.body.innerHTML += '<br/>GAME OVER!');
-const noop = () => {
-};
+const noop = _ => _
 
-const game$ = combineLatest(keys$, letters$).pipe(
-  scan<[string, Letters], State>
-  ((state, [key, letters]) => (
-      letters.ltrs[letters.ltrs.length - 1] &&
-      letters.ltrs[letters.ltrs.length - 1].letter === key
-        ? ((state.score = state.score + 1), letters.ltrs.pop())
-        : noop,
-        state.score > 0 && state.score % levelChangeThreshold === 0
-          ? ((letters.ltrs = []),
-            (state.level = state.level + 1),
-            (state.score = state.score + 1),
-            intervalSubject.next(letters.intrvl - speedAdjust))
-          : noop,
-        { score: state.score, letters: letters.ltrs, level: state.level }
-    ),
+const game$ = combineLatest([keys$, letters$]).pipe(
+  scan<[string, Letters], State>((state, [key, letters]) => {
+      if (letters.ltrs.length > 0 && letters.ltrs[letters.ltrs.length - 1].letter === key) {
+        state.score = state.score + 1
+        letters.ltrs.pop()
+
+        if (state.score > 0 && state.score % levelChangeThreshold === 0) {
+          letters.ltrs = [];
+          state.level = state.level + 1;
+          state.score = state.score + 1;
+          intervalSubject.next(letters.intrvl - speedAdjust)
+        }
+      }
+
+      return { score: state.score, letters: letters.ltrs, level: state.level }
+    },
     { score: 0, letters: [], level: 1 }),
   takeWhile(state => state.letters.length < endThreshold)
 );
