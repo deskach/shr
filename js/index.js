@@ -49,8 +49,8 @@ const game$ = combineLatest([
   .pipe(
     sampleTime(GAME_SPEED)
   )
-  // .subscribe(renderScene)
+  .subscribe(renderScene)
 
 // testMerge()
 // testTimer()
-testEmpty()
+// testEmpty()
