@@ -1,5 +1,5 @@
 import { Game } from './interfaces';
-import { gameHeight, gameWidth, car, player } from './constants';
+import { car, gameHeight, gameWidth, player } from './constants';
 
 const createElem = (column: number) =>
   (elem => (
