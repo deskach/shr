@@ -74,7 +74,7 @@ const state$ = of({
 
 const isNotGameOver = ([state]: Game) => state.lives > 0;
 
-const game$ = combineLatest(state$, road$, player$).pipe(
+const game$ = combineLatest([state$, road$, player$]).pipe(
   scan(updateState(gameSpeed$)),
   tap(render),
   takeWhile(isNotGameOver),
